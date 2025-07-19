@@ -19,7 +19,7 @@ def is_enabled(value, default):
 API_ID = int(os.environ.get("API_ID", "24010108"))
 # API Hash from https://my.telegram.org/auth
 API_HASH = os.environ.get("API_HASH", "8d89700b2fc09a3aa6c906cbed65b040")
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "8063724529:AAETifBMQJ2tzHzplcwdQDHJh4n7PGvodZM")  # Bot token from @BotFather
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "7334094061:AAE-aJyG_i2YJJm2vZXRoB7aYzGpWLl65Hw")  # Bot token from @BotFather
 ADMINS = (
     [int(i.strip()) for i in os.environ.get("ADMINS", "6924888856").split(",")]
     if os.environ.get("ADMINS")
@@ -34,7 +34,7 @@ DATABASE_NAME = os.environ.get("DATABASE_NAME", "getlinks")  # database name
 # If you are using MongoDB Atlas, you can get the URI from your cluster's connection string.
 # Example: mongodb+srv://<username>:<password>@cluster.mongodb.net/getlinks
 DATABASE_URL = os.environ.get(
-    "DATABASE_URL", "mongodb+srv://sonukumarkrbbu60:PIzEc0vSzaEAhoem@cluster0.phibzml.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    "DATABASE_URL", "mongodb+srv://sonukumarkrbbu60:2Oj3H6FdOQ0vDOcY@cluster0.2wrbftx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 )  # mongodb uri from https://www.mongodb.com/
 OWNER_ID = int(os.environ.get("OWNER_ID", "6597445442"))  # id of the owner
 ADMINS.append(OWNER_ID) if OWNER_ID not in ADMINS else []
