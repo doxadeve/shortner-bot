@@ -26,7 +26,13 @@ ADMINS = (
     else []
 )
 
-DATABASE_NAME = os.environ.get("DATABASE_NAME", "anylinks")
+DATABASE_NAME = os.environ.get("DATABASE_NAME", "getlinks")  # database name
+# MongoDB URI from https://www.mongodb.com/
+# If you don't have a MongoDB URI, you can create one using MongoDB Atlas or any other MongoDB service.
+# Make sure to replace the username and password with your own credentials.
+# If you are using a local MongoDB instance, you can use "mongodb://localhost:27017/getlinks" as the URI.
+# If you are using MongoDB Atlas, you can get the URI from your cluster's connection string.
+# Example: mongodb+srv://<username>:<password>@cluster.mongodb.net/getlinks
 DATABASE_URL = os.environ.get(
     "DATABASE_URL", "mongodb+srv://sonukumarkrbbu60:PIzEc0vSzaEAhoem@cluster0.phibzml.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 )  # mongodb uri from https://www.mongodb.com/
@@ -35,10 +41,10 @@ ADMINS.append(OWNER_ID) if OWNER_ID not in ADMINS else []
 
 #  Optionnal variables
 LOG_CHANNEL = int(
-    os.environ.get("LOG_CHANNEL", "-1002511228433")
+    os.environ.get("LOG_CHANNEL", "-1002625306906")
 )  # log channel for information about users
 UPDATE_CHANNEL = int(os.environ.get(
-    "UPDATE_CHANNEL", "-1002641231283"))  # For Force Subscription
+    "UPDATE_CHANNEL", "-1002794429968"))  # For Force Subscription
 BROADCAST_AS_COPY = is_enabled(
     (os.environ.get("BROADCAST_AS_COPY", "False")), False
 )  # true if forward should be avoided
@@ -78,4 +84,4 @@ FORWARD_MESSAGE = is_enabled(
 
 WEB_SERVER = is_enabled(os.environ.get("WEB_SERVER", "True"), True)
 PING_INTERVAL = int(os.environ.get("PING_INTERVAL", "3600"))
-PORT = int(os.environ.get("PORT", "9098"))
+PORT = int(os.environ.get("PORT", "9002"))
