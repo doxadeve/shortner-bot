@@ -1,0 +1,12 @@
+aiohttp
+pymongo[srv]
+motor
+git+https://github.com/vpcreatz/pyrofork-adv
+TgCrypto
+PyBypass
+mdisky
+shortzy
+aiofiles
+validators
+python-dotenv
+uvloop
