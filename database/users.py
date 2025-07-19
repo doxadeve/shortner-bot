@@ -18,7 +18,7 @@ async def get_user(user_id):
             "header_text": "",
             "footer_text": "",
             "username": None,
-            "base_site": "linkcents.com",
+            "base_site": "getlinks.in",
             "banner_image": None,
             "is_banner_image": True,
             "is_username": True,

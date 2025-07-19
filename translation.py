@@ -12,9 +12,9 @@ I'll handle the rest and get those links shortened or converted in a short time!
 """
 
 START_MESSAGE = '''**Hello, {}
-I Am linkcents.com, Bulk Link Converter. I Can Convert Links Directly From Your LinkCents Account,
+I Am getlinks.in, Bulk Link Converter. I Can Convert Links Directly From Your getlinks Account,
     
-1. Go To 👉 https://linkcents.com/member/tools/api  
+1. Go To 👉 https://getlinks.in/member/tools/api  
 2. Than Copy API Key
 3. Than Type /api than give a single space and than paste your API Key (see example to understand more...)**
 
@@ -30,9 +30,9 @@ Example:** `/api de303d5270f481aec928f39883da7b7f9a8812ac `
 
 
 HELP_MESSAGE = '''**Hello, {}
-I Am linkcents.com, Bulk Link Converter Bot. I Can Convert Links Directly From Your linkcents.com Account,**
+I Am getlinks.in, Bulk Link Converter Bot. I Can Convert Links Directly From Your getlinks.in Account,**
     
-1. Go To 👉 https://LinkCents.com/member/tools/api  
+1. Go To 👉 https://getlinks.in/member/tools/api  
 2. Than **Copy API** Key
 3. Than Type **/api** than give a **single space** and than **paste** your **API** Key (**see example** to understand more...)
 
@@ -45,11 +45,11 @@ Example:** `/api de303d5270f481aec928f39883da7b7f9a8812ac `
 **➕ Hit** 👉 /footer To Get Help About Adding your Custom Footer to bot.
 '''
 
-ABOUT_TEXT = '''**Hey! I am linkcents.com Link Converter Bot.**
+ABOUT_TEXT = '''**Hey! I am getlinks.in Link Converter Bot.**
 
 **⚡Features⚡**
 
-• I can **Convert any** links or posts to your **linkcents.com** link / post. (Button Links Posts, Hidden links/Hyperlinks All Are Supported)
+• I can **Convert any** links or posts to your **getlinks.in** link / post. (Button Links Posts, Hidden links/Hyperlinks All Are Supported)
 
 • I Can **auto** add custom **footer text** to your every post. Hit 👉 /footer To know more...
 
@@ -123,7 +123,7 @@ ABOUT_REPLY_MARKUP = InlineKeyboardMarkup([
 
 START_MESSAGE_REPLY_MARKUP = InlineKeyboardMarkup([
     [
-        InlineKeyboardButton('Get Api From linkcents.com', url=f'https://linkcents.com/member/tools/api')
+        InlineKeyboardButton('Get Api From getlinks.in', url=f'https://getlinks.in/member/tools/api')
     ]
 ])
 
@@ -187,7 +187,7 @@ SHORTENER_API_MESSAGE = """To add or update your Shortner Website API,
             
 Ex: `/api de303d5270f481aec928f39883da7b7f9a8812ac `
 
-Get API From [{base_site}](https://linkcents.com)
+Get API From [{base_site}](https://getlinks.in)
 
 Current {base_site} API: `{shortener_api}`"""
 
@@ -209,14 +209,14 @@ This is a helpful way to add a consistent footer to all of your messages. Enjoy!
 
 USERNAME_TEXT = """Current username: {username}
 
-**Hello, I am LinkCents, Bulk Link Converter Bot From Linked linkcents.com Account,**
+**Hello, I am getlinks, Bulk Link Converter Bot From Linked getlinks.in Account,**
 
 **🌟 Type** /channel (channel link or username)
 
 **example:**
-/channel @linkcents_com
+/channel @getlinks_com
 Or
-/channel https://t.me/linkcents_com
+/channel https://t.me/getlinks_com
 
 **🤘 Hit** 👉 /features To Know More Features Of This Bot."""
 

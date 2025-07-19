@@ -60,7 +60,7 @@ LINK_BYPASS = is_enabled(
     (os.environ.get("LINK_BYPASS", "0")), False
 )  # if true, urls will be bypassed
 # your shortener site domain
-BASE_SITE = os.environ.get("BASE_SITE", "linkcents.com")
+BASE_SITE = os.environ.get("BASE_SITE", "getlinks.in")
 
 # For Admin use
 CHANNELS = is_enabled((os.environ.get("CHANNELS", "True")), True)
