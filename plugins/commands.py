@@ -44,46 +44,49 @@ avl_web = [
 
 avl_web1 = "".join(f"- {i}\n" for i in avl_web)
 
-
 @Client.on_message(filters.command("start") & filters.private & filters.incoming)
 @private_use
 async def start(c: Client, m: Message):
-    NEW_USER_REPLY_MARKUP = [
-        [
-            InlineKeyboardButton("Ban", callback_data=f"ban#{m.from_user.id}"),
-            InlineKeyboardButton("Close", callback_data="delete"),
-        ]
-    ]
-    is_user = await is_user_exist(m.from_user.id)
+    try:
+        await m.reply_text("✅ Start command received. Now checking user DB...")
+        
+        is_user = await is_user_exist(m.from_user.id)
+        
+        if not is_user and LOG_CHANNEL:
+            await c.send_message(
+                LOG_CHANNEL,
+                f"#NewUser\n\nUser ID: `{m.from_user.id}`\nName: {m.from_user.mention}",
+                reply_markup=InlineKeyboardMarkup([
+                    [
+                        InlineKeyboardButton("Ban", callback_data=f"ban#{m.from_user.id}"),
+                        InlineKeyboardButton("Close", callback_data="delete"),
+                    ]
+                ]),
+            )
 
-    reply_markup = InlineKeyboardMarkup(NEW_USER_REPLY_MARKUP)
+        user = await get_user(m.from_user.id)
+        if not user:
+            return await m.reply_text("❌ User not found in DB. Please check registration logic.")
+        
+        method = user.get("method", "N/A")
+        base_site = user.get("base_site", "N/A")
+        t = START_MESSAGE.format(m.from_user.mention, method, base_site)
+        
+        if len(m.command) > 1:
+            command = m.command[1]
+            if command.startswith("api"):
+                api = command.split("_", 1)[1]
+                await update_user_info(m.from_user.id, {"shortener_api": api})
+                return await m.reply_text(f"✅ Shortener API updated to {api}")
+        
+        if WELCOME_IMAGE:
+            return await m.reply_photo(photo=WELCOME_IMAGE, caption=t, reply_markup=START_MESSAGE_REPLY_MARKUP)
+        else:
+            return await m.reply_text(t, reply_markup=START_MESSAGE_REPLY_MARKUP, disable_web_page_preview=True)
 
-    if not is_user and LOG_CHANNEL:
-        await c.send_message(
-            LOG_CHANNEL,
-            f"#NewUser\n\nUser ID: `{m.from_user.id}`\nName: {m.from_user.mention}",
-            reply_markup=reply_markup,
-        )
-    new_user = await get_user(m.from_user.id)
-    t = START_MESSAGE.format(
-        m.from_user.mention, new_user["method"], new_user["base_site"]
-    )
-    if len(m.command) > 1:
-        command = m.command[1]
-        if command.startswith("api"):
-            api = command.split("_", 1)[1]
-            user_id = m.from_user.id
-            user = await get_user(user_id)
-            await update_user_info(user_id, {"shortener_api": api})
-            return await m.reply_text(f"Shortener API updated successfully to {api}")
+    except Exception as e:
+        await m.reply_text(f"⚠️ Error: {e}")
 
-    if WELCOME_IMAGE:
-        return await m.reply_photo(
-            photo=WELCOME_IMAGE, caption=t, reply_markup=START_MESSAGE_REPLY_MARKUP
-        )
-    await m.reply_text(
-        t, reply_markup=START_MESSAGE_REPLY_MARKUP, disable_web_page_preview=True
-    )
 
 
 @Client.on_message(filters.command('help') & filters.private & filters.incoming)
