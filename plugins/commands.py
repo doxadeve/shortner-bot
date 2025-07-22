@@ -44,50 +44,57 @@ avl_web = [
 
 avl_web1 = "".join(f"- {i}\n" for i in avl_web)
 
+from pyrogram.errors import ChatAdminRequired, ChannelInvalid
+
 @Client.on_message(filters.command("start") & filters.private & filters.incoming)
 @private_use
 async def start(c: Client, m: Message):
     try:
-        await m.reply_text("✅ Start command received. Now checking user DB...")
-        
+        await m.reply_text("✅ Start command received. Processing...")
+
         is_user = await is_user_exist(m.from_user.id)
-        
+
         if not is_user and LOG_CHANNEL:
-            await c.send_message(
-                LOG_CHANNEL,
-                f"#NewUser\n\nUser ID: `{m.from_user.id}`\nName: {m.from_user.mention}",
-                reply_markup=InlineKeyboardMarkup([
-                    [
-                        InlineKeyboardButton("Ban", callback_data=f"ban#{m.from_user.id}"),
-                        InlineKeyboardButton("Close", callback_data="delete"),
-                    ]
-                ]),
-            )
+            try:
+                await c.send_message(
+                    LOG_CHANNEL,
+                    f"#NewUser\n\nUser ID: `{m.from_user.id}`\nName: {m.from_user.mention}",
+                    reply_markup=InlineKeyboardMarkup([
+                        [
+                            InlineKeyboardButton("Ban", callback_data=f"ban#{m.from_user.id}"),
+                            InlineKeyboardButton("Close", callback_data="delete"),
+                        ]
+                    ]),
+                )
+            except ChatAdminRequired:
+                await m.reply_text(f"❌ Bot is **not admin** in LOG_CHANNEL: `{LOG_CHANNEL}`.")
+            except ChannelInvalid:
+                await m.reply_text(f"❌ LOG_CHANNEL ID is invalid: `{LOG_CHANNEL}`.")
+            except Exception as e:
+                await m.reply_text(f"⚠️ Error sending to LOG_CHANNEL `{LOG_CHANNEL}`:\n`{e}`")
 
         user = await get_user(m.from_user.id)
         if not user:
             return await m.reply_text("❌ User not found in DB. Please check registration logic.")
-        
+
         method = user.get("method", "N/A")
         base_site = user.get("base_site", "N/A")
         t = START_MESSAGE.format(m.from_user.mention, method, base_site)
-        
+
         if len(m.command) > 1:
             command = m.command[1]
             if command.startswith("api"):
                 api = command.split("_", 1)[1]
                 await update_user_info(m.from_user.id, {"shortener_api": api})
                 return await m.reply_text(f"✅ Shortener API updated to {api}")
-        
+
         if WELCOME_IMAGE:
             return await m.reply_photo(photo=WELCOME_IMAGE, caption=t, reply_markup=START_MESSAGE_REPLY_MARKUP)
         else:
             return await m.reply_text(t, reply_markup=START_MESSAGE_REPLY_MARKUP, disable_web_page_preview=True)
 
     except Exception as e:
-        await m.reply_text(f"⚠️ Error: {e}")
-
-
+        await m.reply_text(f"⚠️ Unhandled error:\n`{e}`")
 
 @Client.on_message(filters.command('help') & filters.private & filters.incoming)
 @private_use
